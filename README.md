@@ -53,7 +53,8 @@ The 'pipeline_manager' script controls the flow of the 4 modules of the program:
 ## Input files
 
 Three types of files are needed per time sub-series for running the program. The program comes with
-sample data by default for the user to test it.
+sample data by default for the user to test it. The sample data is provided as .zip files that need to 
+be uncompressed in the data folder.
 
 * *Files with extension .LOM*: It is a space-delimited file with two columns, one for the frequencies and
 one for the power spectrum.
