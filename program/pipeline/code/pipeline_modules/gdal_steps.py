@@ -15,13 +15,16 @@ out_folder = pipeline.settings.OUTPUT_FOLDER
 prn_path = pipeline.settings.DATA_FOLDER
 color_template_path = pipeline.settings.COLOR_FILE_TEMPLATE
 slopeshade_template_path = pipeline.settings.SLOPESHADE_FILE_TEMPLATE
+hillshade_template_path = pipeline.settings.HILLSHADE_FILE_TEMPLATE
 basename = pipeline.settings.RUN_NAME
 asc_file = os.path.join(out_folder, basename + ".asc")
 tif_file = os.path.join(out_folder, basename + ".tif")
 color_tif = os.path.join(out_folder, basename + "_color.tif")
 slope_tif = os.path.join(out_folder, basename + "_slope.tif")
-hillshade = os.path.join(out_folder, basename + "_hillshade.tif")
+hill_tif = os.path.join(out_folder, basename + "_hill.tif")
 slopeshade_tif = os.path.join(out_folder, basename + "_slopeshade.tif")
+hill_aux = os.path.join(out_folder, basename + "_hillaux.tif")
+hillshade_tif = os.path.join(out_folder, basename + "_hillshade.tif")
 
 
 def execute(command):
@@ -123,6 +126,22 @@ def tif_to_hillshade(input_f, output_f):
         return False
 
 
+def hill_to_color(input_f, color_path, output_f):
+
+    try:
+        command = "gdaldem color-relief " \
+                  "-of GTiff " + input_f + " " + color_path + " " + output_f
+
+        execute(command)
+
+        logger.debug("Adding color-ramp into .tif")
+
+        return True
+    except Exception as e:
+        logger.debug("Exception at adding color-ramp into .tif: " + input_f + " " + str(e))
+        return False
+
+
 def run():
 
     try:
@@ -140,7 +159,10 @@ def run():
         slope_to_color(slope_tif, slopeshade_template_path, slopeshade_tif)
 
         print("5.- Generating hillshade raster")
-        tif_to_hillshade(tif_file, hillshade)
+        tif_to_hillshade(tif_file, hill_tif)
+
+        print("6.- Adding color shade into hill raster")
+        hill_to_color(hill_tif, hillshade_template_path, hillshade_tif)  # hill_aux)
 
     except Exception as error:
         print("Error creating the GTiff, color, slope, hillshade files from ASCII grid file: {}.".format(error))

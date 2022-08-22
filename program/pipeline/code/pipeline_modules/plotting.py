@@ -108,17 +108,21 @@ def create_visualization(new_png_file, out_png_f):
     # labels pos
     pos_x = all_years.index(min(all_years, key=lambda x: abs(x - 4500)))  # ka
 
-    plt.axhline(y=500 - 362.3188406, color='green', linewidth=0.3, linestyle=':')  # 1/23ka
-    plt.text(pos_x, 500 - 362.3188406, '23 ka', rotation=0, fontsize=5)
+    y_pos = (1/23)*nrows/high_f
+    plt.axhline(y=nrows - y_pos, color='green', linewidth=0.3, linestyle=':')  # 1/23ka
+    plt.text(pos_x, nrows - y_pos, '23 kyr', rotation=0, fontsize=5)
 
-    plt.axhline(y=500 - 438.5964912, color='green', linewidth=0.3, linestyle=':')  # 1/19ka
-    plt.text(pos_x, 500 - 438.5964912, '19 ka', rotation=0, fontsize=5)
+    y_pos = (1 / 19) * nrows / high_f
+    plt.axhline(y=nrows - y_pos, color='green', linewidth=0.3, linestyle=':')  # 1/19ka
+    plt.text(pos_x, nrows - y_pos, '19 kyr', rotation=0, fontsize=5)
 
-    plt.axhline(y=500 - 203.2520325, color='green', linewidth=0.3, linestyle=':')  # 1/41ka
-    plt.text(pos_x, 500 - 203.2520325, '41 ka', rotation=0, fontsize=5)
+    y_pos = (1 / 41) * nrows / high_f
+    plt.axhline(y=nrows - y_pos, color='green', linewidth=0.3, linestyle=':')  # 1/41ka
+    plt.text(pos_x, nrows - y_pos, '41 kyr', rotation=0, fontsize=5)
 
-    plt.axhline(y=500 - 83.33333333, color='green', linewidth=0.3, linestyle=':')  # 1/100ka
-    plt.text(pos_x, 500 - 83.33333333, '100 ka', rotation=0, fontsize=5)
+    y_pos = (1 / 100) * nrows / high_f
+    plt.axhline(y=nrows - y_pos, color='green', linewidth=0.3, linestyle=':')  # 1/100ka
+    plt.text(pos_x, nrows - y_pos, '100 kyr', rotation=0, fontsize=5)
 
     # strong forcing but weak response
     limit_min = all_years.index(min(all_years, key=lambda x: abs(x - 1300)))
@@ -127,7 +131,7 @@ def create_visualization(new_png_file, out_png_f):
     plt.text(pos_, 465, '1.3-1.8 Ma', rotation=0, fontsize=5)
     limit_min = limit_min / 2014.5
     limit_max = limit_max / 2014.5
-    plt.axhline(y=470, xmin = limit_min, xmax = limit_max, color='black', linewidth=0.5, linestyle='-')
+    plt.axhline(y=470, xmin=limit_min, xmax=limit_max, color='black', linewidth=0.5, linestyle='-')
 
     # weak forcing but strong response
     limit_min = all_years.index(min(all_years, key=lambda x: abs(x - 2300)))
@@ -136,7 +140,7 @@ def create_visualization(new_png_file, out_png_f):
     plt.text(pos_, 465, '2.3-3.0 Ma', rotation=0, fontsize=5)
     limit_min = limit_min / 2014.5
     limit_max = limit_max / 2014.5
-    plt.axhline(y=470, xmin = limit_min, xmax = limit_max, color='black', linewidth=0.5, linestyle='-')
+    plt.axhline(y=470, xmin=limit_min, xmax=limit_max, color='black', linewidth=0.5, linestyle='-')
 
     # y axis
     ylabels = []
@@ -153,7 +157,7 @@ def create_visualization(new_png_file, out_png_f):
     ax.set_yticks(np.linspace(0, image.shape[0], len(ylabels))[::30])
     ax.set_yticklabels(ylabels[::30], rotation=0, size=5)
 
-    ax.set_xlabel(" Time series CENTER expressed as Time (Ma) ", fontsize=7)
+    ax.set_xlabel(" Time series CENTER expressed as Time BP (Ma) ", fontsize=7)
     ax.set_ylabel(" Frequency ", fontsize=7)
 
     limit1 = all_years.index(min(all_years, key=lambda x: abs(x - 2580)))  # ka
@@ -201,9 +205,9 @@ def create_visualization(new_png_file, out_png_f):
     patch_8 = mpatches.Patch(color=to_rgb(colors[8]), label=round(float(values[8]), 2))
     patch_9 = mpatches.Patch(color=to_rgb(colors[9]), label=round(float(values[9]), 2))
 
-    legend_tile = "PS (>" + str(acl) + "% ACL)"
+    # legend_tile = "PS (>" + str(acl) + "% ACL)"
     plt.legend(handles=[patch_1, patch_2, patch_3, patch_4, patch_5, patch_6, patch_7, patch_8, patch_9],
-               title=legend_tile,
+               # title=legend_tile,
                loc='center left',
                prop={'size': 6},
                bbox_to_anchor=(1, 0.5))
