@@ -6,11 +6,11 @@ APP_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 capture = time.strftime("%Y%m%d_%H%M%S")
 
 # Variables that inform the ASCI file creation:
-ACHIEVED_CONFIDENCE_LEVEL = 0
+ACHIEVED_CONFIDENCE_LEVEL = 0  # i.e., 95
 HIGHEST_FREQUENCY_TO_EVALUATE = 0.06
 LOWEST_FREQUENCY_TO_EVALUATE = 0.00
 NUMBER_OF_FREQUENCIES = 500
-#NUMBER_OF_FREQUENCIES = 250
+# NUMBER_OF_FREQUENCIES = 250
 NODATA = -999
 REMOVE_TEMP = False
 BETA1 = 0.1  # range from 0 to 1; opacity for first blend (slopeshade raster and color raster file)
@@ -28,10 +28,10 @@ template_filename = "las0001.prn"
 # search_expression = "uLR"
 # search_expression = "d18"
 search_expression = "las"
-#tile_plot = "LR04 untuned Global Pliocene-Pleistocene Benthic $δ^{18}$O Stack Power Spectra (ACL> " \
-            #+ str(ACHIEVED_CONFIDENCE_LEVEL) + " %)"  # $ italics
-#tile_plot = "LR04 Global Pliocene-Pleistocene Benthic $δ^{18}$O Stack Power Spectra (ACL> " \
-            #+ str(ACHIEVED_CONFIDENCE_LEVEL) + " %)"  # $ italics
+# tile_plot = "LR04 untuned Global Pliocene-Pleistocene Benthic $δ^{18}$O Stack Power Spectra (ACL> " \
+# + str(ACHIEVED_CONFIDENCE_LEVEL) + " %)"  # $ italics
+# tile_plot = "LR04 Global Pliocene-Pleistocene Benthic $δ^{18}$O Stack Power Spectra (ACL> " \
+# + str(ACHIEVED_CONFIDENCE_LEVEL) + " %)"  # $ italics
 tile_plot = "Summer insolation at 65°N on June 21 Power Spectra (ACL> " \
              + str(ACHIEVED_CONFIDENCE_LEVEL) + " %)"
 
