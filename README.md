@@ -19,26 +19,20 @@ Lomb-Scargle, but have not yet approach the data for investigating its spectral 
 ## Prerequisites
 
 This project has been tested using python 3.7.0 in a Windows environment. In principle, there 
-are no constrains on migrating to other systems (i.e. Linux) and/or to higher versions of Python.
+are no constrains on migrating to other systems (i.e., Linux) and/or to higher versions of Python.
 The most important libraries in the program are the following ones (including the used version):
 
-numpy==1.21.2
-matplotlib==3.1.2
+numpy==1.21.2 \
+matplotlib==3.1.2 \
+opencv-python==4.6.0
 
-Both of them are included in the 'requirements.txt' file.
+All of them are included in the 'requirements.txt' file.
 
-However, there are two mandatory requirements:
+However, there is one extra mandatory requirement:
 
-- *GDAL utilities*: The program needs the GDAL utilities (https://gdal.org/) to be fully operative 
-  in the command line of the operative system, as the program will make direct calls to these 
-  (i.e. `C:\>gdal_translate`). Installing the GDAL library in Python is not a requirement.
-  
-- *Python 2 and mapnik library*: The program also needs Python 2 to be installed in the
-computer machine and to be callable from the command line (i.e. `C:\>python2`). The reason 
-  for this is that the mapnik library (https://mapnik.org/) which this program uses for the 
-  blending operation, needs a 32-bit installation of Python27. This is required to run Mapnik.
-  An example of how to install Mapnik can be found here:
-  https://github.com/mapnik/mapnik/wiki/WindowsInstallation
+- *GDAL utilities*: This code needs the GDAL utilities (https://gdal.org/) to be fully operative 
+  in the command line of the operative system, as the program will make direct calls to these programs 
+  (i.e. `C:\>gdal_translate`). Installing the GDAL library in Python is not a requirement, just on the system.
   
 ## Overview
 
@@ -47,14 +41,13 @@ The 'pipeline_manager' script controls the flow of the 4 modules of the program:
 * **1. create_asc.py**: Reads the data files and produces a raster file in ASCII-format (*.asc).
 * **2. gdal_steps.py**: Generates the color-relief, slope and hillshade in GTiff format (*.tif)
   from the .asc file.
-* **3. mapnik_blending.py**: it blends all the three previous raster files into one.
+* **3. blending.py**: it blends all the previously generated raster files into one.
 * **4. plotting.py**: Adds extra visual elements for interpretation.
 
 ## Input files
 
 Three types of files are needed per time sub-series for running the program. The program comes with
-sample data by default for the user to test it. The sample data is provided as .zip files that need to 
-be uncompressed in the data folder.
+sample data by default for the user to test it.
 
 * *Files with extension .LOM*: It is a space-delimited file with two columns, one for the frequencies and
 one for the power spectrum.
@@ -96,6 +89,12 @@ frequency and the minimum frequency that were evaluated during the spectral anal
   
 * *REMOVE_TEMP*: True by default. It indicates whether the auxiliary files that are generated 
   in the intermediate stages are deleted (True) or preserved (False) in the output folder.
+
+* *BETA1*: 0.1 by default. It represents the weight of the slopeshade raster file at being blended 
+  with the color raster file, which has the default weight value of 1.
+
+* *BETA2*: 0.4 by default. It represents the weight of the hillshade raster file at being blended 
+  with the merged color+slopeshade raster file.
   
 * *DATA_FOLDER*: The relative path of the subfolder where the input files are located.
 
